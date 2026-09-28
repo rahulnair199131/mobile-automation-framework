@@ -2,29 +2,32 @@
 
 ## Overview
 
-A mobile UI automation framework built using **Java 11, Appium,
-Selenium, TestNG and Cucumber BDD**, with support for Android and iOS.
+A mobile UI automation framework built using **Java 11, Appium, Selenium, TestNG and Cucumber BDD**, with support for Android and iOS.
 
-The framework is designed around: - Page Object Model (POM) -
-Platform-specific locators with shared page classes - Cucumber BDD -
-TestNG execution - Configuration-driven platform/device selection -
-Explicit waits for synchronization - Failure screenshots - Smoke and
-regression tagging - Extensible Android/iOS driver creation
+The framework is designed around:
+- Page Object Model (POM)
+- Platform-specific locators with shared page classes
+- Cucumber BDD
+- TestNG execution
+- Configuration-driven platform/device selection
+- Explicit waits for synchronization
+- Failure screenshots
+- Smoke and regression tagging
+- Extensible Android/iOS driver creation
 
 ## Technology Stack
 
--   Java 11
--   Gradle
--   Appium 2
--   Appium Java Client
--   Selenium WebDriver
--   TestNG
--   Cucumber
--   ExtentReports dependency included
+- Java 11
+- Gradle
+- Appium 2
+- Appium Java Client
+- Selenium WebDriver
+- TestNG
+- Cucumber
 
 ## Framework Structure
 
-``` text
+```text
 mobile-automation-framework/
 ├── apps/
 │   ├── android/
@@ -56,13 +59,13 @@ mobile-automation-framework/
 
 Configuration is maintained in:
 
-``` text
+```text
 src/test/resources/config/config.properties
 ```
 
 Example:
 
-``` properties
+```properties
 platform=android
 
 android.device.name=emulator-5554
@@ -76,31 +79,30 @@ ios.app.path=apps/ios/SauceLabs.ipa
 explicit.wait=10
 ```
 
-The `platform` property acts as the default platform. It can be
-overridden at runtime for CI/CD execution using the `-Dplatform` JVM
-property.
+The `platform` property acts as the default platform. It can be overridden at runtime for CI/CD execution using the `-Dplatform` JVM property.
 
 ## Prerequisites
 
 Install/configure:
 
-1.  Java 11
-2.  Gradle (or use the Gradle wrapper)
-3.  Appium 2
-4.  Appium UiAutomator2 driver for Android
-5.  Android SDK and an Android emulator/device
-6.  Xcode and an iOS simulator/device for local iOS execution
-7.  Git
+1. Java 11
+2. Gradle (or use the Gradle wrapper)
+3. Appium 2
+4. Appium UiAutomator2 driver for Android
+5. - Appium XCUITest driver for iOS
+6. Android SDK and an Android emulator/device
+7. Xcode and an iOS simulator/device for local iOS execution
+8. Git
 
 For Android, verify the device is available:
 
-``` bash
+```bash
 adb devices
 ```
 
 Start the Appium server before execution:
 
-``` bash
+```bash
 appium
 ```
 
@@ -110,20 +112,19 @@ appium
 
 Set:
 
-``` properties
+```properties
 platform=android
 ```
 
-Make sure the Android emulator/device is running and Appium is available
-on:
+Make sure the Android emulator/device is running and Appium is available on:
 
-``` text
+```text
 http://127.0.0.1:4723
 ```
 
 Run:
 
-``` bash
+```bash
 ./gradlew test
 ```
 
@@ -131,55 +132,49 @@ Run:
 
 Set:
 
-``` properties
+```properties
 platform=ios
 ```
 
-Ensure the iOS simulator/device and Xcode/Appium environment are
-configured.
+Ensure the iOS simulator/device and Xcode/Appium environment are configured.
 
-The framework uses `IOSDriver` with `XCUITestOptions` and the configured
-iOS bundle ID/IPA.
+The framework uses `IOSDriver` with `XCUITestOptions` and the configured iOS bundle ID/IPA.
 
-``` bash
+```bash
 ./gradlew test
 ```
 
-> Android execution has been validated end-to-end. Local iOS execution
-> is configured in the framework but should be validated in an Xcode/iOS
-> environment before relying on it in CI.
+> Android execution has been validated end-to-end. Local iOS execution is configured in the framework but should be validated in an Xcode/iOS environment before relying on it in CI.
 
 ## CI/CD Runtime Execution
 
-Platform and Cucumber tags can be supplied at runtime without modifying
-the framework source code or configuration file.
+Platform and Cucumber tags can be supplied at runtime without modifying the framework source code or configuration file.
 
 ### Android smoke
 
-``` bash
+```bash
 ./gradlew test -Dplatform=android -Dcucumber.filter.tags="@smoke"
 ```
 
 ### Android regression
 
-``` bash
+```bash
 ./gradlew test -Dplatform=android -Dcucumber.filter.tags="@regression"
 ```
 
 ### iOS smoke
 
-``` bash
+```bash
 ./gradlew test -Dplatform=ios -Dcucumber.filter.tags="@smoke"
 ```
 
 ### iOS regression
 
-``` bash
+```bash
 ./gradlew test -Dplatform=ios -Dcucumber.filter.tags="@regression"
 ```
 
-The `platform` system property overrides the default `platform` value in
-`config.properties`.
+The `platform` system property overrides the default `platform` value in `config.properties`.
 
 ## Test Scenarios
 
@@ -187,15 +182,15 @@ Current mobile scenarios include:
 
 ### Login
 
--   Successful login
--   Invalid login
--   Logout
+- Successful login
+- Invalid login
+- Logout
 
 ### Additional Flow
 
--   Select Sauce Labs Backpack
--   Add product to cart
--   Proceed to checkout
+- Select Sauce Labs Backpack
+- Add product to cart
+- Proceed to checkout
 
 ## BDD and Tags
 
@@ -203,25 +198,25 @@ Tests are written using Cucumber feature files.
 
 Examples:
 
-``` gherkin
+```gherkin
 @smoke
 Scenario: Successful login
 ```
 
-``` gherkin
+```gherkin
 @regression
 Scenario: Unsuccessful login
 ```
 
 Tags can be selected at runtime using:
 
-``` bash
+```bash
 -Dcucumber.filter.tags="@smoke"
 ```
 
 or:
 
-``` bash
+```bash
 -Dcucumber.filter.tags="@regression"
 ```
 
@@ -231,41 +226,37 @@ Explicit waits are centralized through `BasePage` using `WebDriverWait`.
 
 Example:
 
-``` java
+```java
 wait.until(
     ExpectedConditions.visibilityOf(element)
 );
 ```
 
-This avoids relying on fixed sleeps and provides synchronization around
-elements that need to become available.
+This avoids relying on fixed sleeps and provides synchronization around elements that need to become available.
 
 ## Failure Handling
 
-Cucumber hooks capture a screenshot when a scenario fails and attach it
-to the Cucumber report.
+Cucumber hooks capture a screenshot when a scenario fails and attach it to the Cucumber report.
 
-This provides visual evidence for failures without adding screenshot
-code to individual test steps.
+This provides visual evidence for failures without adding screenshot code to individual test steps.
 
 ## Android / iOS Design
 
 The test steps are platform independent.
 
-Platform-specific differences are handled through: - Separate
-Android/iOS driver creation - Platform-specific Appium PageFactory
-locators
+Platform-specific differences are handled through:
+- Separate Android/iOS driver creation
+- Platform-specific Appium PageFactory locators
 
 Example:
 
-``` java
+```java
 @AndroidFindBy(id = "android_locator")
 @iOSXCUITFindBy(accessibility = "ios_locator")
 private WebElement element;
 ```
 
-This allows the same page object and Cucumber step to support both
-platforms where the user flow is the same.
+This allows the same page object and Cucumber step to support both platforms where the user flow is the same.
 
 ## Design Decisions
 
@@ -273,61 +264,52 @@ platforms where the user flow is the same.
 
 Application interactions are separated from Cucumber step definitions.
 
--   `LoginPage` handles login-screen interactions.
--   `HomePage` handles home-screen interactions.
--   `CheckoutPage` handles checkout-screen interactions.
+- `LoginPage` handles login-screen interactions.
+- `HomePage` handles home-screen interactions.
+- `CheckoutPage` handles checkout-screen interactions.
 
 ### Driver Management
 
 `DriverFactory` is responsible for creating platform-specific drivers.
 
-`DriverManager` stores the active driver using `ThreadLocal`, allowing
-the framework to be extended for parallel execution.
+`DriverManager` stores the active driver using `ThreadLocal`, allowing the framework to be extended for parallel execution.
 
 ### Hooks
 
-Cucumber hooks handle driver setup and teardown automatically for each
-scenario.
+Cucumber hooks handle driver setup and teardown automatically for each scenario.
 
 ### Configuration
 
-Device/platform-specific values are kept outside Java code in
-`config.properties`.
+Device/platform-specific values are kept outside Java code in `config.properties`.
 
 The platform can also be overridden at runtime for CI/CD.
 
 ## Flakiness Considerations
 
-The framework avoids fixed sleeps and uses explicit waits for element
-visibility.
+The framework avoids fixed sleeps and uses explicit waits for element visibility.
 
-Potential sources of flakiness include: - Emulator/device performance -
-App startup time - Network-dependent application behavior - Differences
-between local and cloud devices - Platform-specific UI/locator
-differences
+Potential sources of flakiness include:
+- Emulator/device performance
+- App startup time
+- Network-dependent application behavior
+- Differences between local and cloud devices
+- Platform-specific UI/locator differences
 
-The framework can be extended with retry handling, additional
-synchronization utilities, and device/cloud execution configuration if
-required.
+The framework can be extended with retry handling, additional synchronization utilities, and device/cloud execution configuration if required.
 
 ## AI Usage
 
-AI was used as a development assistant during framework creation for: -
-Reviewing framework structure and design choices - Assisting with
-Appium/TestNG/Cucumber configuration - Explaining Appium and Selenium
-APIs - Troubleshooting configuration and runtime errors - Suggesting
-maintainable Page Object patterns - Reviewing synchronization and
-failure-handling approaches
-
-All application-specific locators and execution behavior were verified
-against the application rather than being accepted blindly from
-AI-generated suggestions.
+AI was used as a development assistant during framework creation for:
+- Reviewing framework structure and design choices
+- Assisting with Appium/TestNG/Cucumber configuration
+- Suggesting maintainable Page Object patterns
+- Reviewing synchronization and failure-handling approaches
 
 ## Reports
 
 Cucumber HTML reporting is configured at:
 
-``` text
+```text
 build/reports/cucumber.html
 ```
 
@@ -335,8 +317,12 @@ Failure screenshots are attached to failed Cucumber scenarios.
 
 ## Future Extensions
 
-Potential future enhancements include: - Full iOS local execution
-validation - Cloud device execution - ExtentReports integration - API
-automation utilities and tests - Additional utility classes as framework
-needs grow - Parallel execution configuration - CI/CD pipeline
-configuration - Additional retry/flakiness handling
+Potential future enhancements include:
+- Cloud device execution
+- ExtentReports integration
+- API automation utilities and tests
+- Additional utility classes as framework needs grow
+- Parallel execution configuration
+- CI/CD pipeline configuration
+- Additional retry/flakiness handling
+- Secure credential handling using environment variables or protected CI/CD variables
