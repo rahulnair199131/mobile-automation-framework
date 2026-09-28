@@ -89,7 +89,7 @@ Install/configure:
 2. Gradle (or use the Gradle wrapper)
 3. Appium 2
 4. Appium UiAutomator2 driver for Android
-5. - Appium XCUITest driver for iOS
+5. Appium XCUITest driver for iOS
 6. Android SDK and an Android emulator/device
 7. Xcode and an iOS simulator/device for local iOS execution
 8. Git
