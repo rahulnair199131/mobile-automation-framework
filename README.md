@@ -74,7 +74,7 @@ android.app.path=apps/android/SauceLabs.apk
 
 ios.device.name=iPhone 15
 ios.bundle.id=<actual_ios_bundle_id>
-ios.app.path=apps/ios/SauceLabs.ipa
+ios.app.path=apps/ios/SauceLabs.app
 
 explicit.wait=10
 ```
