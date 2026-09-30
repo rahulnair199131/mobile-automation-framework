@@ -73,7 +73,7 @@ android.device.udid=emulator-5554
 android.app.path=apps/android/SauceLabs.apk
 
 ios.device.name=iPhone 15
-ios.bundle.id=<actual_ios_bundle_id>
+ios.bundle.id=com.saucelabs.SwagLabsMobileApp
 ios.app.path=apps/ios/SauceLabs.app
 
 explicit.wait=10
