@@ -1,8 +1,10 @@
 package pages;
 
+import config.ConfigManager;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BasePage {
@@ -34,7 +36,21 @@ public class HomePage extends BasePage {
     }
 
     public void openMenu() {
-        menuButton.click();
+
+        if ("android".equalsIgnoreCase(ConfigManager.getPlatform())) {
+
+            menuButton.click();
+
+        } else if ("ios".equalsIgnoreCase(ConfigManager.getPlatform())) {
+
+            int xOffset = menuButton.getSize().getWidth() / 3;
+            int yOffset = menuButton.getSize().getHeight() / 3;
+
+            new Actions(driver)
+                    .moveToElement(menuButton, xOffset, yOffset)
+                    .click()
+                    .perform();
+        }
     }
 
     public void clickLogout() {
@@ -45,7 +61,21 @@ public class HomePage extends BasePage {
         backpack.click();
     }
     public void openCart() {
-        cartButton.click();
+
+        if ("android".equalsIgnoreCase(ConfigManager.getPlatform())) {
+
+            cartButton.click();
+
+        } else if ("ios".equalsIgnoreCase(ConfigManager.getPlatform())) {
+
+            int xOffset = cartButton.getSize().getWidth() / 3;
+            int yOffset = cartButton.getSize().getHeight() / 3;
+
+            new Actions(driver)
+                    .moveToElement(cartButton, xOffset, yOffset)
+                    .click()
+                    .perform();
+        }
     }
 
 }
