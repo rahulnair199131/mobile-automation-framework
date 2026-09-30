@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class HomePage extends BasePage {
 
     @AndroidFindBy(xpath = "//*[@text='PRODUCTS']")
-    @iOSXCUITFindBy(xpath = "//*[@text='PRODUCTS']")
+    @iOSXCUITFindBy(xpath = "//*[@value='PRODUCTS']")
     private WebElement productsLabel;
 
     @AndroidFindBy(accessibility = "test-Menu")
@@ -20,7 +20,7 @@ public class HomePage extends BasePage {
     private WebElement logoutButton;
 
     @AndroidFindBy(xpath = "//*[@text='Sauce Labs Backpack']")
-    @iOSXCUITFindBy(xpath = "//*[@text='Sauce Labs Backpack']")
+    @iOSXCUITFindBy(xpath = "//*[@value='Sauce Labs Backpack']/../../XCUIElementTypeOther[contains(@name,'ADD')]//XCUIElementTypeOther[@name='ADD TO CART']")
     private WebElement backpack;
 
     @AndroidFindBy(accessibility = "test-Cart")
