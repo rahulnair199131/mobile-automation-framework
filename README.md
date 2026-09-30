@@ -33,7 +33,7 @@ mobile-automation-framework/
 │   ├── android/
 │   │   └── SauceLabs.apk
 │   └── ios/
-│       └── SauceLabs.ipa
+│       └── SauceLabs.app
 │
 ├── src/
 │   ├── main/java/
@@ -138,13 +138,11 @@ platform=ios
 
 Ensure the iOS simulator/device and Xcode/Appium environment are configured.
 
-The framework uses `IOSDriver` with `XCUITestOptions` and the configured iOS bundle ID/IPA.
+The framework uses IOSDriver with XCUITestOptions and a Simulator-compatible .app bundle configured through ios.app.path. The iOS bundle ID is configured separately in ios.bundle.id.
 
 ```bash
 ./gradlew test
 ```
-
-> Android execution has been validated end-to-end. Local iOS execution is configured in the framework but should be validated in an Xcode/iOS environment before relying on it in CI.
 
 ## CI/CD Runtime Execution
 
@@ -294,6 +292,7 @@ Potential sources of flakiness include:
 - Network-dependent application behavior
 - Differences between local and cloud devices
 - Platform-specific UI/locator differences
+- Some iOS controls required tapping within a specific portion of the element's hit area. Platform-specific interaction handling was added where a standard click() did not reliably trigger the intended action, while Android retains the standard interaction.
 
 The framework can be extended with retry handling, additional synchronization utilities, and device/cloud execution configuration if required.
 
