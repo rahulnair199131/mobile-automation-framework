@@ -1,5 +1,6 @@
 package pages;
 
+import config.ConfigManager;
 import driver.DriverManager;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +19,7 @@ public class BasePage {
 
         this.wait = new WebDriverWait(
                 driver,
-                Duration.ofSeconds(10)
+                Duration.ofSeconds(ConfigManager.getExplicitWait())
         );
 
         PageFactory.initElements(
