@@ -8,7 +8,7 @@ import pages.HomePage;
 
 public class CartSteps {
 
-    CheckoutPage checkoutPage;
+    private CheckoutPage checkoutPage;
 
     @When("the user adds Sauce Labs Backpack to the cart")
     public void userAddsBackpackToCart() {
