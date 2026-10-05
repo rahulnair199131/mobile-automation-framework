@@ -23,7 +23,24 @@ dependencies {
 }
 
 tasks.test {
-    useTestNG {
-        suites("src/test/resources/testng.xml")
-    }
+    useTestNG()
+
+    setScanForTestClasses(false)
+
+    include(
+        "**/*Test.class",
+        "**/*Tests.class",
+        "**/*TestCase.class",
+        "**/TestRunner.class"
+    )
+
+    systemProperty(
+        "cucumber.filter.tags",
+        System.getProperty("cucumber.filter.tags")
+    )
+
+    systemProperty(
+        "platform",
+        System.getProperty("platform")
+    )
 }
