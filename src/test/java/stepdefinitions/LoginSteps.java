@@ -12,9 +12,15 @@ public class LoginSteps {
     private LoginPage loginPage;
     private HomePage homePage;
 
+    public LoginSteps() {
+        loginPage = new LoginPage();
+        homePage = new HomePage();
+    }
+
     @Given("the user is on the login screen")
     public void userIsOnLoginScreen() {
-        loginPage = new LoginPage();
+        loginPage.dismissCompatibilityPopupIfDisplayed();
+        Assert.assertTrue(loginPage.isUsernameDisplayed());
     }
 
     @When("the user logs in with valid credentials")
@@ -29,8 +35,6 @@ public class LoginSteps {
 
     @Then("the home screen should be displayed")
     public void homeScreenShouldBeDisplayed() {
-        homePage = new HomePage();
-
         Assert.assertTrue(homePage.isProductsDisplayed());
     }
 
@@ -41,7 +45,6 @@ public class LoginSteps {
 
     @When("the user logs out")
     public void userLogsOut() {
-        HomePage homePage = new HomePage();
         homePage.openMenu();
         homePage.clickLogout();
     }
